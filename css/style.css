@@ -15,6 +15,34 @@ body {
 	color: #fff;
 }
 
+.alert {
+	border-radius: 0.5rem;
+}
+
+.info {
+	background-color: #d0e1ff;
+	color: #094298;
+	border: 1px solid #b6d4fe;
+}
+
+.success {
+	background-color: #d1e7de;
+	color: #0f5232;
+	border: 1px solid #badbcc;
+}
+
+.danger {
+	background-color: #f8d7da;
+	color: #832029;
+	border: 1px solid #f5c2c8;
+}
+
+.warning {
+	background-color: #fff2cd;
+	color: #654d04;
+	border: 1px solid #ffecb5;
+}
+
 .form {
 	transform: translate(-50%, -50%);
 	outline: 1px dashed orchid;
