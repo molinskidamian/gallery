@@ -3,69 +3,89 @@
 class File {
     private $file;
     private $fileName;
-    public $fileType;
-    public $fileSize;
-    private $originalfilePath;
-    private $uploadPath = UPLOAD_FILES;
+    private $fileType;
+    private $fileSize;
+    private $fileOriginalPath;
+    private $fileUploadPath;
+    private $fileErrorCode;
 
     public function __construct($file){
-        $this->fileName = $_FILES['fileInput']['name'];
-        $this->fileType = $_FILES['fileInput']['type'];
-        $this->fileSize = $_FILES['fileInput']['size'];
-        $this->originalfilePath = $_FILES['fileInput']['tmp_name'];
-        $this->fileError = $_FILES['fileInput']['error'];
-
+        $this->file = $file;
+        $this->setName();
+        $this->setType();
+        $this->setSize();
+        $this->setfileOriginalPath();
+        $this->setErrorCode();
+        $this->setPath(UPLOAD_FILES);
     }
 
-    public function getOriginalFilePath(){
-        return $this->originalfilePath;
+    private function setName(){
+        $this->fileName = $this->file['name'];
     }
 
-    public function getFileName() {
-        return $this->name;
+    private function setType(){
+        $this->fileType = $this->file['type'];
     }
 
-    public function getFileType() {
-        return $this->type;
+    private function setSize(){
+        $this->fileSize = $this->file['size'];
     }
 
-    public function getFileSize() {
-        return $this->size;
+    private function setfileOriginalPath(){
+        $this->fileOriginalPath = $this->file['tmp_name'];
     }
 
-    public function getUploadPath(){
-        return $this->uploadPath;
+    private function setErrorCode(){
+        $this->fileErrorCode = $this->file['error'];
     }
 
-    public function setFileName($name) {
-        $this->fileName = $name;
+    private function setPath($path){
+        $this->fileUploadPath = $path;
     }
 
-    public function addFile(){
-        try {
-            $target = $this->getUploadPath() . $this->getFileName;
-            // if(move_uploaded_file($this->getOriginalFilePath(), $target)){
-            if(move_uploaded_file($_FILES['fileInput']['tmp_name'], 'images/'.$_FILES['fileInput']['name'])){
-                include './connect.db.php';
-                $sql='INSERT INTO files
-                    (date, fileName, fileType, fileSize)
-                VALUES(
-                        NOW(),
-                        :fileName,
-                        :fileType,
-                        :fileSize
-                    )';
-                    $s = $pdo->prepare($sql);
+    public function getName(){
+        return $this->fileName;
+    }
 
-                    $s->bindValue(':fileName',$this->fileName);
-                    $s->bindValue(':fileType',$this->fileType);
-                    $s->bindValue(':fileSize',$this->fileSize);
-                    $s->execute();
-                    $alert = new Alert('success', 'Plik został dodany');
-                    $alert->show();
+    public function getType(){
+        return $this->fileType;
+    }
+
+    public function getSize(){
+        return $this->fileSize;
+    }
+
+    public function getfileOriginalPath(){
+        return $this->fileOriginalPath;
+    }
+
+    public function getErrorCode(){
+        return $this->fileErrorCode;
+    }
+
+    public function getPath(){
+        return $this->fileUploadPath;
+    }
+
+    public function uploadFile(){
+        if(move_uploaded_file($this->getfileOriginalPath(), $this->getPath().'/'.$this->getName()))
+        {
+            include './connect.db.php';
+            try {
+                $sql='INSERT INTO files SET
+                    date = CURDATE(),
+                    fileName = :fileName,
+                    fileType = :Type,
+                    fileSize = :fileSize
+                ';
+                $s = $pdo->prepare($sql);
+                $s->bindValue(':fileName', time().$this->getName());
+                $s->bindValue(':fileType', $this->getType());
+                $s->bindValue(':fileSize', $this->getSize());
+                $s->execute();
+            } catch (PDOException $e) {
+                echo '<p>'.$e->getLine().' --- '.$e->getMessage().'</p>';
             }
-        } catch (PDOException $e) {
-            echo '<p>'.$e->getLine().' --- '.$e->getMessage().'</p>';
         }
     }
 }
