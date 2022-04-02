@@ -15,32 +15,51 @@ body {
 	color: #fff;
 }
 
+.btn {
+	font-size: 1.1rem;
+	border-radius: 3px;
+	padding: 0.5rem 1rem;
+	border: none;
+	outline: none;
+}
+
+.primary {
+	color: white;
+	background-color: #0c6efd;
+}
+
+.primary:hover {
+	background-color: #075ed7;
+}
+
 .alert {
-	border-radius: 0.5rem;
+	border-radius: 10px;
+	padding: 1rem;
+	margin: 1rem;
 }
 
 .info {
 	background-color: #d0e1ff;
 	color: #094298;
-	border: 1px solid #b6d4fe;
+	border: 2px solid #b6d4fe;
 }
 
 .success {
-	background-color: #d1e7de;
+	background-color: #d2e7de;
 	color: #0f5232;
-	border: 1px solid #badbcc;
+	border: 2px solid #badbcc;
 }
 
 .danger {
 	background-color: #f8d7da;
 	color: #832029;
-	border: 1px solid #f5c2c8;
+	border: 2px solid #f5c2c8;
 }
 
 .warning {
 	background-color: #fff2cd;
 	color: #654d04;
-	border: 1px solid #ffecb5;
+	border: 2px solid #ffecb5;
 }
 
 .form {
@@ -64,4 +83,35 @@ body {
 
 input[type='file'] {
 	background-color: orange;
+}
+
+.upper-menu {
+	padding: 1rem;
+	display: flex;
+	justify-content: flex-end;
+}
+
+.main-nav {
+	background-color: #011123;
+	display: flex;
+	padding: 1rem;
+	list-style: none;
+}
+
+.main-nav > li {
+	margin: 0 1rem;
+}
+
+.main-nav > ul > li > a:link a:visited {
+	color: #86ccc7;
+}
+
+.main-nav--link:link,
+.main-nav--link:visited {
+	color: #86ccc7;
+	text-decoration: none;
+}
+.main-nav--link:hover {
+	color: #ff6d6c;
+	text-decoration: underline;
 }

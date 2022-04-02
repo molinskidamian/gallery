@@ -20,7 +20,9 @@ class File {
     }
 
     private function setName(){
-        $this->fileName = $this->file['name'];
+        // $name = $this->file['name'];
+        $type = strchr($this->getType(), "/");
+        $this->fileName = str_ireplace("/", '.', time().$type);
     }
 
     private function setType(){
@@ -68,7 +70,7 @@ class File {
     }
 
     public function uploadFile(){
-        if(move_uploaded_file($this->getfileOriginalPath(), $this->getPath().'/'.$this->getName()))
+        // if(move_uploaded_file($this->getfileOriginalPath(), $this->getPath().'/'.$this->getName()))
         {
             include './connect.db.php';
             try {
@@ -79,9 +81,9 @@ class File {
                     fileSize = :fileSize
                 ';
                 $s = $pdo->prepare($sql);
-                $s->bindValue(':fileName', time().$this->getName());
-                $s->bindValue(':fileType', $this->getType());
-                $s->bindValue(':fileSize', $this->getSize());
+                $s->bindValue(':fileName', time().$this->getName(), PDO::PARAM_STR);
+                $s->bindValue(':fileType', $this->getType(), PDO::PARAM_STR);
+                $s->bindValue(':fileSize', $this->getSize(), PDO::PARAM_STR);
                 $s->execute();
             } catch (PDOException $e) {
                 echo '<p>'.$e->getLine().' --- '.$e->getMessage().'</p>';
