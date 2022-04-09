@@ -27,6 +27,11 @@
 				$pageDescription = 'Galerie zdjęć';
 				$pageUrl = './sites/gallery.php';
 				break;
+			case 'login':
+				$pageTitle = 'Logowanie';
+				$pageDescription = 'Login description';
+				$pageUrl = './sites/login.php';
+				break;
 
 			default:
 				$pageTitle = 'Default - strona główna';

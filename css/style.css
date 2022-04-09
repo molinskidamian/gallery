@@ -85,6 +85,16 @@ input[type='file'] {
 	background-color: orange;
 }
 
+input {
+	border: none;
+	outline: none;
+	border: 1px solid #011123;
+	padding: 0.25rem 0.5rem;
+	background-color: #01162d;
+	background-color: #011123;
+	color: #fff;
+}
+
 .upper-menu {
 	padding: 1rem;
 	display: flex;
