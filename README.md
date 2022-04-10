@@ -1,4 +1,5 @@
 ```php
+    <?php
     session_start();
     ob_start();
 
@@ -17,4 +18,5 @@
 
     spl_autoload_register('my_autoloader');
     define('UPLOAD_FILES', 'images/');
+?>
 ```
