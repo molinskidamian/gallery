@@ -1,4 +1,6 @@
-session_start(); ob_start();
+```php
+    session_start();
+    ob_start();
 
     define('DB_HOST', 'xxx');
     define('DB_USER', 'xxx');
@@ -15,3 +17,4 @@ session_start(); ob_start();
 
     spl_autoload_register('my_autoloader');
     define('UPLOAD_FILES', 'images/');
+```
